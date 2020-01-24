@@ -1,0 +1,7 @@
+{
+  "short_name": "Tokigames",
+  "name": "Tokigames App",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone"
+}
