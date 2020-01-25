@@ -17,6 +17,7 @@ const mapBusinessFlightData = (data) => {
             departureTime: departure.toTimeString(),
             arrivalDate: arrival.toDateString(),
             arrivalTime: arrival.toTimeString(),
+            isBusiness: true
         });
     }
 
@@ -39,6 +40,7 @@ const mapCheapFlightData = (data) => {
             departureTime: departure.toTimeString(),
             arrivalDate: arrival.toDateString(),
             arrivalTime: arrival.toTimeString(),
+            isBusiness: false
         });
     }
 

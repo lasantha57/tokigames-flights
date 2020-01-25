@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 import { requestFetchFlights } from '../../store/actions/flight-actions';
 import DataGrid from '../shared/custom-controls/DataGrid/DataGrid';
+import { Button } from '@material-ui/core';
 
 const Flights = () => {
 
@@ -12,7 +16,7 @@ const Flights = () => {
             {
                 id: 'id',
                 numeric: false,
-                disablePadding: true,
+                disablePadding: false,
                 label: 'Id'
             },
             {
@@ -50,6 +54,12 @@ const Flights = () => {
                 numeric: false,
                 disablePadding: false,
                 label: 'Arrival Time'
+            },
+            {
+                id: 'isBusiness',
+                numeric: false,
+                disablePadding: false,
+                label: 'Category'
             }
         ],
         rows: [],
@@ -65,13 +75,21 @@ const Flights = () => {
 
     const renderGrid = () => {
         return (
-            <DataGrid title={grid.title} rows={flights.data} columns={grid.columns}></DataGrid>
+            <DataGrid onRowSelected={handleClick} loading={flights.loading} rows={flights.data} columns={grid.columns}></DataGrid>
         )
     }
+
+    const handleClick = (event, id) => {
+        console.log(id)
+    };
 
     return (
         <React.Fragment>
             <Grid container direction="row" justify="flex-start" alignItems="flex-start">
+                <Box mt={2} mb={2}>
+                    {/* <Typography variant="h5" component="h5">Flights</Typography> */}
+                    <Button variant="contained" color="primary">Add Flight</Button>
+                </Box>
                 {flights ? renderGrid() : ''}
             </Grid>
         </React.Fragment >
