@@ -67,7 +67,7 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState(columns[0].id);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -131,7 +131,11 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                 })}
                             {emptyRows > 0 && (
                                 <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={columns.length} />
+                                    <TableCell colSpan={columns.length}>{loading ? <CircularProgress size={40}
+                                        left={-20}
+                                        top={10}
+                                        status={'loading'}
+                                        style={{ marginLeft: '50%' }} /> : ''}</TableCell>
                                 </TableRow>
                             )}
 
