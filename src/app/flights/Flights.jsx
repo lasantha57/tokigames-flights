@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useHistory } from 'react-router';
 import { requestFetchFlights } from '../../store/actions/flight-actions';
 import DataGrid from '../shared/custom-controls/DataGrid/DataGrid';
-import { Button } from '@material-ui/core';
 
 const Flights = () => {
 
@@ -68,27 +68,36 @@ const Flights = () => {
 
     const flights = useSelector(state => state.flights);
     const dispatch = useDispatch()
+    const history = useHistory();
+
+    const initFetch = useCallback(() => {
+        dispatch(requestFetchFlights());
+    }, [dispatch]);
 
     useEffect(() => {
-        dispatch(requestFetchFlights());
-    }, []);
+        initFetch();
+    }, [initFetch]);
 
     const renderGrid = () => {
         return (
-            <DataGrid onRowSelected={handleClick} loading={flights.loading} rows={flights.data} columns={grid.columns}></DataGrid>
+            <DataGrid onRowSelected={handleRowClick} loading={flights.loading} rows={flights.data} columns={grid.columns}></DataGrid>
         )
     }
 
-    const handleClick = (event, id) => {
+    const handleRowClick = (event, id) => {
         console.log(id)
     };
+
+    const addNewFlight = () => {
+        history.push('/flights/new')
+    }
 
     return (
         <React.Fragment>
             <Grid container direction="row" justify="flex-start" alignItems="flex-start">
                 <Box mt={2} mb={2}>
                     {/* <Typography variant="h5" component="h5">Flights</Typography> */}
-                    <Button variant="contained" color="primary">Add Flight</Button>
+                    <Button variant="contained" color="primary" onClick={addNewFlight}>Add Flight</Button>
                 </Box>
                 {flights ? renderGrid() : ''}
             </Grid>
