@@ -4,7 +4,7 @@ import { rootReducer } from './reducers/root-reducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga'
 
-import flightsSaga from './sagas/flights-saga';
+import onFetchFlights from './sagas/flights-saga';
 
 const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
@@ -17,7 +17,7 @@ const configureStore = () => {
         composeWithDevTools(middlewareEnhancer)
     )
 
-    sagaMiddleware.run(flightsSaga);
+    sagaMiddleware.run(onFetchFlights);
 
     return store;
 }

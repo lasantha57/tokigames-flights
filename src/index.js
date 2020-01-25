@@ -4,6 +4,10 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './store/store';
+import axios from 'axios';
+import { BASE_API } from './utils/config';
+
+axios.defaults.baseURL = BASE_API;
 
 const store = configureStore();
 
