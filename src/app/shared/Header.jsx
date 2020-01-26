@@ -30,11 +30,11 @@ const Header = () => {
             <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                        Tokigames
+                        Flights
           </Typography>
                     <nav>
                         <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-                            Hello, User
+                            Hello, TOKI
             </Link>
                     </nav>
                     <Button href="#" color="primary" variant="outlined" className={classes.link}>
