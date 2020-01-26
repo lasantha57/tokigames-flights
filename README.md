@@ -1,6 +1,12 @@
-# TokiGames Front end Code Challenge
+# TokiGames Front End Code Challenge
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# Previews
+
+[![Preview](https://github.com/lasantha57/tokigames-flights/blob/master/preview-1.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
+
+[![Preview](https://github.com/lasantha57/tokigames-flights/blob/master/preview-2.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
 
 ## The Application Stack
 
