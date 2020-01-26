@@ -68,6 +68,7 @@ const Flights = () => {
     const [flightModal, setFlightModal] = useState(false);
     const [selectedFlight, setSelectedFlight] = useState({});
     const [filteredData, setFilteredData] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const flights = useSelector(state => state.flights);
     const dispatch = useDispatch();
 
@@ -94,11 +95,11 @@ const Flights = () => {
     };
 
     const renderDataGrid = useMemo(() => {
-        const rows = filteredData.length > 0 ? filteredData : flights.data
+        const rows = searchQuery ? filteredData : flights.data;
         return (
             <DataGrid onRowSelected={handleRowClick} loading={flights.loading} rows={rows} columns={columns}></DataGrid>
         )
-    }, [columns, filteredData, flights]);
+    }, [columns, filteredData, flights, searchQuery]);
 
     const closeFlightModal = () => {
         setFlightModal(false);
@@ -115,6 +116,7 @@ const Flights = () => {
         if (confirm) {
             dispatch(deleteFlight(selectedFlight.id))
         }
+        setSearchQuery('');
         setDeleteConfirm(false);
     }
 
@@ -130,15 +132,19 @@ const Flights = () => {
         let currentList = [];
         let newList = [];
 
-        if (query !== '') {
+        if (query) {
             currentList = flights.data;
             newList = currentList.filter(item => {
-                const lc = item['departure'].toLowerCase();
+                let rowData;
+                for (let i = 0; i < columns.length; i++) {
+                    rowData = `${rowData} ${item[columns[i].id].toLowerCase()}`;
+                }
                 const filter = query.toLowerCase();
-                return lc.includes(filter);
+                return rowData.includes(filter);
             });
         }
 
+        setSearchQuery(query);
         setFilteredData(newList);
     }
 
@@ -147,7 +153,7 @@ const Flights = () => {
             <Grid container direction="row" justify="flex-start" alignItems="flex-start">
                 <Box mt={2} mb={2}>
                     <Button variant="contained" color="primary" onClick={() => setFlightModal(true)}>Add Flight</Button>
-                    <SearchInput onSearch={handleSearch}></SearchInput>
+                    <SearchInput query={searchQuery} onSearch={handleSearch}></SearchInput>
                 </Box>
                 {renderDataGrid}
                 {showDeleteConfirmDialog}
