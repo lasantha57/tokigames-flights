@@ -1,5 +1,5 @@
 import { call, put, takeLatest, } from 'redux-saga/effects';
-import { flightService } from '../../services/flight-service';
+import { flightService } from '../../api-services/flight-service';
 import * as actionTypes from '../constants/action-types';
 import { fetchFlights, fetchFlightsError } from '../actions/flight-actions';
 

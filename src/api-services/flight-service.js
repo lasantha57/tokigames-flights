@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+import { logError } from '../utils/logger';
 import { getUniqueId, convertToDateString, convertToTimeString } from '../utils/util';
 
 const mapBusinessFlightData = (data) => {
@@ -51,11 +52,15 @@ const mapCheapFlightData = (data) => {
 }
 
 const getAll = async () => {
-    const [cheapFlights, businessFlights] = await axios.all([getCheapFlights(), getBusinessFlights()]);
-    const cheapFlightsData = mapCheapFlightData(cheapFlights.data.data);
-    const businessFlightsData = mapBusinessFlightData(businessFlights.data.data);
-    const flights = [...cheapFlightsData, ...businessFlightsData]
-    return flights;
+    try {
+        const [cheapFlights, businessFlights] = await axios.all([getCheapFlights(), getBusinessFlights()]);
+        const cheapFlightsData = mapCheapFlightData(cheapFlights.data.data);
+        const businessFlightsData = mapBusinessFlightData(businessFlights.data.data);
+        const flights = [...cheapFlightsData, ...businessFlightsData]
+        return flights;
+    } catch (error) {
+        logError(error);
+    }
 }
 
 const getCheapFlights = () => {
