@@ -5,8 +5,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-const GridHeader = props => {
-    const { classes, order, orderBy, onRequestSort } = props;
+const GridHeader = ({ classes, order, orderBy, onRequestSort, columns }) => {
+
+    console.log('Grid Header')
+
     const createSortHandler = property => event => {
         onRequestSort(event, property);
     };
@@ -14,7 +16,7 @@ const GridHeader = props => {
     return (
         <TableHead>
             <TableRow>
-                {props.columns.map(headCell => (
+                {columns.map(headCell => (
                     !headCell.hidden ?
                         <TableCell
                             key={headCell.id}

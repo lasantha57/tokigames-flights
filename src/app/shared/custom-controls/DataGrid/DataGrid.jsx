@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
         top: 20,
         width: 1,
     },
+    container: {
+        maxHeight: 550,
+    },
 }));
 
 function desc(a, b, orderBy) {
@@ -64,6 +67,7 @@ function getSorting(order, orderBy) {
 }
 
 const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
+    console.log('DataGrid');
 
     const classes = useStyles();
     const [order, setOrder] = useState('asc');
@@ -95,16 +99,16 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <TableContainer>
-                    <Table className={classes.table} size={'medium'} >
-                        <GridHeader
+                <TableContainer className={classes.container}>
+                    <Table className={classes.table} size={'medium'} stickyHeader>
+                        {<GridHeader
                             columns={columns}
                             classes={classes}
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
-                        />
+                        />}
                         <TableBody>
                             {stableSort(rows, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
