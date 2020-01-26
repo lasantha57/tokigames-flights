@@ -16,7 +16,7 @@ class ErrorHandler extends Component {
     render() {
         return this.state.errorOccurred ? <React.Fragment>
             <div>
-                <p>Page not found, goto <Link to="/" className="btn btn-link">Home</Link></p>
+                <p>Page not found, goto <Link to="/flights" className="btn btn-link">Flights</Link></p>
             </div>
         </React.Fragment> : this.props.children;
     }

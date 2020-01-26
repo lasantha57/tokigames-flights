@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
@@ -12,7 +13,7 @@ const useStyles = makeStyles({
     },
 });
 
-const SearchInput = ({ searchQuery, onSearch }) => {
+const SearchInput = ({ onSearch }) => {
     const classes = useStyles();
 
     const doSearch = _.debounce((query) => {
@@ -25,10 +26,14 @@ const SearchInput = ({ searchQuery, onSearch }) => {
                 <SearchIcon />
             </Grid>
             <Grid item>
-                <Input type="search" placeholder="Search Flight..." value={searchQuery} onChange={(e) => doSearch(e.target.value)} inputProps={{ 'aria-label': 'search' }} />
+                <Input type="search" placeholder="Search Flight..." onChange={(e) => doSearch(e.target.value)} inputProps={{ 'aria-label': 'search' }} />
             </Grid>
         </Grid>
     );
 }
+
+SearchInput.propTypes = {
+    onSearch: PropTypes.func.isRequired
+};
 
 export default SearchInput;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -36,7 +37,7 @@ const FlightModal = ({ flight, showDialog, onClose }) => {
     const [category, setCategory] = React.useState(flight.category || 'business');
 
     const handleSubmit = () => {
-        if (flight) {
+        if (flight.id) {
             dispatch(updateFlight({
                 ...flight, departure, arrival, departureDate, departureTime, arrivalDate, arrivalTime, category
             }));
@@ -96,12 +97,18 @@ const FlightModal = ({ flight, showDialog, onClose }) => {
                 <DialogActions>
                     <Button variant="contained" color="primary" onClick={handleSubmit}
                         disabled={departure === '' || arrival === '' || departureDate === '' || departureTime === '' || arrivalDate === '' || arrivalTime === ''}
-                    >Save</Button>
+                    >{flight.id ? 'Update Flight' : 'Add Flight'}</Button>
                     <Button variant="contained" color="secondary" onClick={onClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment >
     )
 }
+
+FlightModal.propTypes = {
+    flight: PropTypes.object.isRequired,
+    showDialog: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
+};
 
 export default FlightModal;

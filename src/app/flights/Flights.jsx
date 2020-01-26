@@ -153,7 +153,7 @@ const Flights = () => {
             <Grid container direction="row" justify="flex-start" alignItems="flex-start">
                 <Box mt={2} mb={2}>
                     <Button variant="contained" color="primary" onClick={() => setFlightModal(true)}>Add Flight</Button>
-                    <SearchInput query={searchQuery} onSearch={handleSearch}></SearchInput>
+                    <SearchInput onSearch={handleSearch}></SearchInput>
                 </Box>
                 {renderDataGrid}
                 {showDeleteConfirmDialog}

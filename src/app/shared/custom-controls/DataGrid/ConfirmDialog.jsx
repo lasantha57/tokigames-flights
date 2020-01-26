@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -35,5 +36,10 @@ const ConfirmDialog = ({ showDialog, onClose }) => {
         </Dialog>
     )
 }
+
+ConfirmDialog.propTypes = {
+    showDialog: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
+};
 
 export default ConfirmDialog;
