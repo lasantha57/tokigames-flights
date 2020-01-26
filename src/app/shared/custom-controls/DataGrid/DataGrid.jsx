@@ -96,12 +96,7 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <TableContainer>
-                    <Table
-                        className={classes.table}
-                        aria-labelledby="tableTitle"
-                        size={'medium'}
-                        aria-label="enhanced table"
-                    >
+                    <Table className={classes.table} size={'medium'} >
                         <GridHeader
                             columns={columns}
                             classes={classes}
@@ -115,10 +110,7 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     return (
-                                        <TableRow
-                                            hover
-                                            key={row.id}
-                                        >
+                                        <TableRow hover key={row.id} >
                                             <TableCell align="center"><Badge badgeContent={row.category === 'business' ? 'Business' : 'Economy'} color={row.category === 'business' ? 'primary' : 'secondary'}></Badge></TableCell>
                                             <TableCell align="left">{row.departure}</TableCell>
                                             <TableCell align="left">{row.arrival}</TableCell>
@@ -126,12 +118,12 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                             <TableCell align="left">{row.departureTime}</TableCell>
                                             <TableCell align="left">{row.arrivalDate}</TableCell>
                                             <TableCell align="left">{row.arrivalTime}</TableCell>
-                                            <TableCell align="left"><Button onClick={event => handleClick('DELETE', row.id)}><DeleteIcon /></Button></TableCell>
+                                            <TableCell align="left"><Button onClick={() => handleClick('DELETE', row.id)}><DeleteIcon /></Button></TableCell>
                                         </TableRow>
                                     );
                                 })}
                             {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableRow style={{ height: 50 * emptyRows }}>
                                     <TableCell colSpan={columns.length}>{loading ? <CircularProgress size={40}
                                         left={-20}
                                         top={10}

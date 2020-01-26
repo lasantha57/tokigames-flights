@@ -9,6 +9,7 @@ import { useHistory } from 'react-router';
 import { requestFetchFlights, deleteFlight } from '../../store/actions/flight-actions';
 import DataGrid from '../shared/custom-controls/DataGrid/DataGrid';
 import ConfirmDialog from '../shared/custom-controls/DataGrid/ConfirmDialog';
+import NewFlight from './NewFlight';
 
 const Flights = () => {
 
@@ -75,10 +76,10 @@ const Flights = () => {
     });
 
     const [deleteConfirm, setDeleteConfirm] = useState(false);
+    const [newFlightModal, setNewFlightModal] = useState(false);
     const [selectedFlightId, setSelectedFlightId] = useState('');
     const flights = useSelector(state => state.flights);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const initFetch = useCallback(() => {
         dispatch(requestFetchFlights());
@@ -117,7 +118,11 @@ const Flights = () => {
     }
 
     const addNewFlight = () => {
-        history.push('/flights/new')
+        setNewFlightModal(true);
+    }
+
+    const closeFlightModal = () => {
+        setNewFlightModal(false);
     }
 
     return (
@@ -129,6 +134,7 @@ const Flights = () => {
                 </Box>
                 {flights ? renderGrid() : ''}
                 {deleteConfirm ? <ConfirmDialog showDialog={deleteConfirm} onClose={handleFlightDelete}></ConfirmDialog> : ''}
+                {newFlightModal ? <NewFlight showDialog={newFlightModal} onClose={closeFlightModal}></NewFlight> : ''}
             </Grid>
         </React.Fragment >
     );
