@@ -7,6 +7,7 @@ import ErrorHandler from './shared/ErrorHandler';
 import Footer from './shared/Footer';
 import Header from './shared/Header';
 import Flights from './flights/Flights';
+import NewFlight from './flights/NewFlight';
 
 const App = () => {
 
@@ -15,8 +16,8 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route exact path="/flights" component={Flights} />
-          <Route exact path="/flights/new" component={Flights} />
-          <Redirect to="/flights" />
+          <Route exact path="/flights/new" component={NewFlight} />
+          <Redirect to="/flights/new" />
         </Switch>
       </Suspense>
     )

@@ -17,7 +17,14 @@ const Flights = () => {
                 id: 'id',
                 numeric: false,
                 disablePadding: false,
+                hidden: true,
                 label: 'Id'
+            },
+            {
+                id: 'category',
+                numeric: false,
+                disablePadding: false,
+                label: 'Category'
             },
             {
                 id: 'departure',
@@ -54,12 +61,6 @@ const Flights = () => {
                 numeric: false,
                 disablePadding: false,
                 label: 'Arrival Time'
-            },
-            {
-                id: 'isBusiness',
-                numeric: false,
-                disablePadding: false,
-                label: 'Category'
             }
         ],
         rows: [],

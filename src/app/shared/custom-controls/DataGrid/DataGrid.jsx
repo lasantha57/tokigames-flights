@@ -118,14 +118,13 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                             key={row.id}
                                             onClick={event => handleClick(event, row.id)}
                                         >
-                                            <TableCell component="th" scope="row">{row.id}</TableCell>
+                                            <TableCell align="center"><Badge badgeContent={row.category === 'business' ? 'Business' : 'Economy'} color={row.category === 'business' ? 'primary' : 'secondary'}></Badge></TableCell>
                                             <TableCell align="left">{row.departure}</TableCell>
                                             <TableCell align="left">{row.arrival}</TableCell>
                                             <TableCell align="left">{row.departureDate}</TableCell>
                                             <TableCell align="left">{row.departureTime}</TableCell>
                                             <TableCell align="left">{row.arrivalDate}</TableCell>
                                             <TableCell align="left">{row.arrivalTime}</TableCell>
-                                            <TableCell align="left"><Badge badgeContent={row.isBusiness ? 'Business' : 'Economy'} color={row.isBusiness ? 'primary' : 'secondary'}></Badge></TableCell>
                                         </TableRow>
                                     );
                                 })}
