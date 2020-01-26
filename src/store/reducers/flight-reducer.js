@@ -23,6 +23,13 @@ const flightReducer = (state = INITIAL_STATE, { type, payload }) => {
                 error: payload,
                 data: []
             }
+        case actionTypes.CREATE_FLIGHT:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                data: [...state.data, payload]
+            }
         default:
             return state;
     }
