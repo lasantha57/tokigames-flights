@@ -9,6 +9,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
+import { Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import GridHeader from './GridHeader';
@@ -75,8 +77,8 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
         setOrderBy(property);
     };
 
-    const handleClick = (event, id) => {
-        onRowSelected(event, id);
+    const handleClick = (action, id) => {
+        onRowSelected(action, id);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -116,7 +118,6 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                         <TableRow
                                             hover
                                             key={row.id}
-                                            onClick={event => handleClick(event, row.id)}
                                         >
                                             <TableCell align="center"><Badge badgeContent={row.category === 'business' ? 'Business' : 'Economy'} color={row.category === 'business' ? 'primary' : 'secondary'}></Badge></TableCell>
                                             <TableCell align="left">{row.departure}</TableCell>
@@ -125,6 +126,7 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                             <TableCell align="left">{row.departureTime}</TableCell>
                                             <TableCell align="left">{row.arrivalDate}</TableCell>
                                             <TableCell align="left">{row.arrivalTime}</TableCell>
+                                            <TableCell align="left"><Button onClick={event => handleClick('DELETE', row.id)}><DeleteIcon /></Button></TableCell>
                                         </TableRow>
                                     );
                                 })}

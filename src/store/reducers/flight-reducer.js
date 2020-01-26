@@ -35,7 +35,7 @@ const flightReducer = (state = INITIAL_STATE, { type, payload }) => {
                 ...state,
                 loading: false,
                 error: null,
-                data: state.data.filter(o => o.get('id') !== payload)
+                data: state.data.filter(item => item.id !== payload)
             }
         case actionTypes.UPDATE_FLIGHT:
             return {

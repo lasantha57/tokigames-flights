@@ -6,8 +6,9 @@ import { Button } from '@material-ui/core';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { requestFetchFlights } from '../../store/actions/flight-actions';
+import { requestFetchFlights, deleteFlight } from '../../store/actions/flight-actions';
 import DataGrid from '../shared/custom-controls/DataGrid/DataGrid';
+import ConfirmDialog from '../shared/custom-controls/DataGrid/ConfirmDialog';
 
 const Flights = () => {
 
@@ -61,14 +62,22 @@ const Flights = () => {
                 numeric: false,
                 disablePadding: false,
                 label: 'Arrival Time'
+            },
+            {
+                id: 'actions',
+                numeric: false,
+                disablePadding: false,
+                label: ''
             }
         ],
         rows: [],
         title: 'Flights'
     });
 
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
+    const [selectedFlightId, setSelectedFlightId] = useState('');
     const flights = useSelector(state => state.flights);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const initFetch = useCallback(() => {
@@ -85,9 +94,27 @@ const Flights = () => {
         )
     }
 
-    const handleRowClick = (event, id) => {
-        console.log(id)
+    const handleRowClick = (action, id) => {
+        setSelectedFlightId(id);
+
+        switch (action) {
+            case 'DELETE':
+                setDeleteConfirm(true);
+                break;
+            case 'UPDATE':
+                //TODO:
+                break;
+            default:
+                break;
+        }
     };
+
+    const handleFlightDelete = (confirm) => {
+        if (confirm) {
+            dispatch(deleteFlight(selectedFlightId))
+        }
+        setDeleteConfirm(false);
+    }
 
     const addNewFlight = () => {
         history.push('/flights/new')
@@ -101,6 +128,7 @@ const Flights = () => {
                     <Button variant="contained" color="primary" onClick={addNewFlight}>Add Flight</Button>
                 </Box>
                 {flights ? renderGrid() : ''}
+                {deleteConfirm ? <ConfirmDialog showDialog={deleteConfirm} onClose={handleFlightDelete}></ConfirmDialog> : ''}
             </Grid>
         </React.Fragment >
     );
