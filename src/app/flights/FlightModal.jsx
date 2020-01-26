@@ -96,7 +96,7 @@ const FlightModal = ({ flight, showDialog, onClose }) => {
                 <DialogActions>
                     <Button variant="contained" color="primary" onClick={handleSubmit}
                         disabled={departure === '' || arrival === '' || departureDate === '' || departureTime === '' || arrivalDate === '' || arrivalTime === ''}
-                    >{flight ? 'Update Flight' : 'Add Flight'} </Button>
+                    >Save</Button>
                     <Button variant="contained" color="secondary" onClick={onClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
