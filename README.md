@@ -4,9 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Previews
 
-[![Preview](https://github.com/lasantha57/tokigames-flights/blob/master/preview-1.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
+[![Preview](https://github.com/lasantha57/tokigames-flights/blob/develop/preview-1.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
 
-[![Preview](https://github.com/lasantha57/tokigames-flights/blob/master/preview-2.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
+[![Preview](https://github.com/lasantha57/tokigames-flights/blob/develop/preview-1.png?raw=true)](http://github.com/lasantha57/tokigames-flights/)
 
 ## The Application Stack
 
