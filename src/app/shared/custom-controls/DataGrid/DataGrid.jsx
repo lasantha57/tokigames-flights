@@ -9,8 +9,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
-import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import GridHeader from './GridHeader';
@@ -67,7 +67,6 @@ function getSorting(order, orderBy) {
 }
 
 const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
-    console.log('DataGrid');
 
     const classes = useStyles();
     const [order, setOrder] = useState('asc');
@@ -81,8 +80,8 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
         setOrderBy(property);
     };
 
-    const handleClick = (action, id) => {
-        onRowSelected(action, id);
+    const handleClick = (action, data) => {
+        onRowSelected(action, data);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -115,20 +114,23 @@ const DataGrid = ({ rows, columns, onRowSelected, loading }) => {
                                 .map((row, index) => {
                                     return (
                                         <TableRow hover key={row.id} >
-                                            <TableCell align="center"><Badge badgeContent={row.category === 'business' ? 'Business' : 'Economy'} color={row.category === 'business' ? 'primary' : 'secondary'}></Badge></TableCell>
+                                            <TableCell align="center"><Badge badgeContent={row.category === 'business' ? 'Business' : 'Cheap'} color={row.category === 'business' ? 'primary' : 'secondary'}></Badge></TableCell>
                                             <TableCell align="left">{row.departure}</TableCell>
                                             <TableCell align="left">{row.arrival}</TableCell>
                                             <TableCell align="left">{row.departureDate}</TableCell>
                                             <TableCell align="left">{row.departureTime}</TableCell>
                                             <TableCell align="left">{row.arrivalDate}</TableCell>
                                             <TableCell align="left">{row.arrivalTime}</TableCell>
-                                            <TableCell align="left"><Button onClick={() => handleClick('DELETE', row.id)}><DeleteIcon /></Button></TableCell>
+                                            <TableCell align="left">
+                                                <EditIcon onClick={() => handleClick('EDIT', row)} />
+                                                <DeleteIcon onClick={() => handleClick('DELETE', row)} />
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
                             {emptyRows > 0 && (
                                 <TableRow style={{ height: 50 * emptyRows }}>
-                                    <TableCell colSpan={columns.length}>{loading ? <CircularProgress size={40}
+                                    <TableCell colSpan={(columns.length + 1)}>{loading ? <CircularProgress size={40}
                                         left={-20}
                                         top={10}
                                         status={'loading'}

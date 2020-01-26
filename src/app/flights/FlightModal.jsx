@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { getUniqueId, } from '../../utils/util';
 import { useDispatch } from 'react-redux';
-import { createFlight } from '../../store/actions/flight-actions';
+import { createFlight, updateFlight } from '../../store/actions/flight-actions';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -23,22 +23,28 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const NewFlight = ({ showDialog, onClose }) => {
+const FlightModal = ({ flight, showDialog, onClose }) => {
     const classes = useStyles();
     const dispatch = useDispatch()
 
-    const [departure, setDeparture] = React.useState('');
-    const [arrival, setArrival] = React.useState('');
-    const [departureDate, setDepartureDate] = React.useState('');
-    const [departureTime, setDepartureTime] = React.useState('');
-    const [arrivalDate, setArrivalDate] = React.useState('');
-    const [arrivalTime, setArrivalTime] = React.useState('');
-    const [category, setCategory] = React.useState('business');
+    const [departure, setDeparture] = React.useState(flight.departure || '');
+    const [arrival, setArrival] = React.useState(flight.arrival || '');
+    const [departureDate, setDepartureDate] = React.useState(flight.departureDate || '');
+    const [departureTime, setDepartureTime] = React.useState(flight.departureTime || '');
+    const [arrivalDate, setArrivalDate] = React.useState(flight.arrivalDate || '');
+    const [arrivalTime, setArrivalTime] = React.useState(flight.arrivalTime || '');
+    const [category, setCategory] = React.useState(flight.category || 'business');
 
     const handleSubmit = () => {
-        dispatch(createFlight({
-            id: getUniqueId(), departure, arrival, departureDate, departureTime, arrivalDate, arrivalTime, category
-        }));
+        if (flight) {
+            dispatch(updateFlight({
+                ...flight, departure, arrival, departureDate, departureTime, arrivalDate, arrivalTime, category
+            }));
+        } else {
+            dispatch(createFlight({
+                id: getUniqueId(), departure, arrival, departureDate, departureTime, arrivalDate, arrivalTime, category
+            }));
+        }
         onClose();
     }
 
@@ -90,7 +96,7 @@ const NewFlight = ({ showDialog, onClose }) => {
                 <DialogActions>
                     <Button variant="contained" color="primary" onClick={handleSubmit}
                         disabled={departure === '' || arrival === '' || departureDate === '' || departureTime === '' || arrivalDate === '' || arrivalTime === ''}
-                    >Add Flight</Button>
+                    >{flight ? 'Update Flight' : 'Add Flight'} </Button>
                     <Button variant="contained" color="secondary" onClick={onClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
@@ -98,4 +104,4 @@ const NewFlight = ({ showDialog, onClose }) => {
     )
 }
 
-export default NewFlight;
+export default FlightModal;

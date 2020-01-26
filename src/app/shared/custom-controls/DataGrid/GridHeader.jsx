@@ -7,8 +7,6 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const GridHeader = ({ classes, order, orderBy, onRequestSort, columns }) => {
 
-    console.log('Grid Header')
-
     const createSortHandler = property => event => {
         onRequestSort(event, property);
     };
@@ -39,6 +37,11 @@ const GridHeader = ({ classes, order, orderBy, onRequestSort, columns }) => {
                         </TableCell>
                         : null
                 ))}
+                <TableCell
+                    align={'left'}
+                    padding={'default'}
+                    sortDirection={false}
+                >Actions</TableCell>
             </TableRow>
         </TableHead>
     );

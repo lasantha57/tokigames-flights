@@ -7,7 +7,7 @@ export const convertToDateString = (date) => {
 }
 
 export const convertToTimeString = (date) => {
-    return moment(date).format('HH:mm a');
+    return moment(date).format('HH:mm');
 }
 
 export const getUniqueId = () => {

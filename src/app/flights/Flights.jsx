@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { requestFetchFlights, deleteFlight } from '../../store/actions/flight-actions';
 import DataGrid from '../shared/custom-controls/DataGrid/DataGrid';
 import ConfirmDialog from '../shared/custom-controls/DataGrid/ConfirmDialog';
-import NewFlight from './NewFlight';
+import FlightModal from './FlightModal';
 import SearchInput from '../shared/custom-controls/DataGrid/SearchInput';
 
 const Flights = () => {
@@ -61,18 +61,12 @@ const Flights = () => {
             numeric: false,
             disablePadding: false,
             label: 'Arrival Time'
-        },
-        {
-            id: 'actions',
-            numeric: false,
-            disablePadding: false,
-            label: ''
         }
     ]);
 
     const [deleteConfirm, setDeleteConfirm] = useState(false);
-    const [newFlightModal, setNewFlightModal] = useState(false);
-    const [selectedFlightId, setSelectedFlightId] = useState('');
+    const [flightModal, setFlightModal] = useState(false);
+    const [selectedFlight, setSelectedFlight] = useState({});
     const [filteredData, setFilteredData] = useState([]);
     const flights = useSelector(state => state.flights);
     const dispatch = useDispatch();
@@ -85,14 +79,14 @@ const Flights = () => {
         initFetch();
     }, [initFetch]);
 
-    const handleRowClick = (action, id) => {
-        setSelectedFlightId(id);
+    const handleRowClick = (action, flight) => {
+        setSelectedFlight(flight);
         switch (action) {
             case 'DELETE':
                 setDeleteConfirm(true);
                 break;
-            case 'UPDATE':
-                //TODO:
+            case 'EDIT':
+                setFlightModal(true);
                 break;
             default:
                 break;
@@ -107,18 +101,19 @@ const Flights = () => {
     }, [columns, filteredData, flights]);
 
     const closeFlightModal = () => {
-        setNewFlightModal(false);
+        setFlightModal(false);
+        setSelectedFlight({});
     }
 
-    const openNewFlightModal = useMemo(() => {
-        if (newFlightModal) {
-            return <NewFlight showDialog={newFlightModal} onClose={closeFlightModal}></NewFlight>
+    const openFlightDataModal = useMemo(() => {
+        if (flightModal) {
+            return <FlightModal flight={selectedFlight} showDialog={flightModal} onClose={closeFlightModal}></FlightModal>
         }
-    }, [newFlightModal]);
+    }, [flightModal, selectedFlight]);
 
     const handleFlightDelete = (confirm) => {
         if (confirm) {
-            dispatch(deleteFlight(selectedFlightId))
+            dispatch(deleteFlight(selectedFlight.id))
         }
         setDeleteConfirm(false);
     }
@@ -127,6 +122,7 @@ const Flights = () => {
         if (deleteConfirm) {
             return <ConfirmDialog showDialog={deleteConfirm} onClose={handleFlightDelete}></ConfirmDialog>
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [deleteConfirm]);
 
     const handleSearch = (query) => {
@@ -150,12 +146,12 @@ const Flights = () => {
         <React.Fragment>
             <Grid container direction="row" justify="flex-start" alignItems="flex-start">
                 <Box mt={2} mb={2}>
-                    <Button variant="contained" color="primary" onClick={() => setNewFlightModal(true)}>Add Flight</Button>
+                    <Button variant="contained" color="primary" onClick={() => setFlightModal(true)}>Add Flight</Button>
                     <SearchInput onSearch={handleSearch}></SearchInput>
                 </Box>
                 {renderDataGrid}
                 {showDeleteConfirmDialog}
-                {openNewFlightModal}
+                {openFlightDataModal}
             </Grid>
         </React.Fragment >
     );
